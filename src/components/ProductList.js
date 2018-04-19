@@ -1,18 +1,20 @@
 import React from 'react';
 import Product from './Product';
 
-import connect from '../store/connect';
+import { connect } from 'react-redux';
 
-class ProductList extends React.Component {
-  render() {
-    return (
-      <div>
-        {this.props.state.products.map((product) => {
-          return <Product key={product.id} product={product} addToCart={this.props.addToCart} />;
-        })}
-      </div>
-    );
-  }
-}
+const ProductList = ({ products, addToCart }) => (
+  <div>
+    {products.map((product) => {
+      return <Product key={product.id} product={product} />;
+    })}
+  </div>
+);
 
-export default connect(ProductList);
+const mapStateToProps = (state) => {
+  return {
+    products: state.products,
+  };
+};
+
+export default connect(mapStateToProps)(ProductList);

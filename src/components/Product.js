@@ -1,4 +1,7 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
+import { addToCart } from '../store/actions';
 
 class Product extends React.Component {
   handleAddToCart = () => this.props.addToCart(this.props.product);
@@ -13,4 +16,4 @@ class Product extends React.Component {
   }
 }
 
-export default Product;
+export default connect(null, { addToCart })(Product);

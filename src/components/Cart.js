@@ -1,5 +1,7 @@
 import React from 'react';
 
+import { connect } from 'react-redux';
+
 class Cart extends React.PureComponent {
   cartTotal = () =>
     this.props.products
@@ -21,4 +23,10 @@ class Cart extends React.PureComponent {
   }
 }
 
-export default Cart;
+const mapStateToProps = (state) => {
+  return {
+    products: state.cart,
+  };
+};
+
+export default connect(mapStateToProps)(Cart);

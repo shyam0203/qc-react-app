@@ -2,6 +2,8 @@ import React from 'react';
 
 import CategoryItem from './CategoryItem';
 
+import { connect } from 'react-redux';
+
 class CategoryList extends React.PureComponent {
   render() {
     return (
@@ -21,4 +23,11 @@ class CategoryList extends React.PureComponent {
   }
 }
 
-export default CategoryList;
+const mapStateToProps = (state) => {
+  return {
+    categories: state.categories,
+    activeCategoryId: state.activeCategoryId,
+  };
+};
+
+export default connect(mapStateToProps)(CategoryList);
