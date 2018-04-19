@@ -6,6 +6,8 @@ import Cart from './Cart';
 
 import apiClient from '../store/actions/api-client';
 
+import { Provider } from '../store/stateCtx';
+
 class App extends React.PureComponent {
   state = {
     categories: [],
@@ -38,28 +40,30 @@ class App extends React.PureComponent {
   };
   render() {
     return (
-      <div id="container" style={{ display: 'flex' }}>
-        <div id="leftSidebar" style={{ flex: 3, borderRight: 'thin solid #aaa', paddingRight: 10 }}>
-          <CategoryList
-            categories={this.state.categories}
-            activeCategoryId={this.state.activeCategoryId}
-            onCategoryClick={this.showProductsForCategory}
-          />
+      <Provider value={this.state}>
+        <div id="container" style={{ display: 'flex' }}>
+          <div id="leftSidebar" style={{ flex: 3, borderRight: 'thin solid #aaa', paddingRight: 10 }}>
+            {/*<CategoryList
+              activeCategoryId={this.state.activeCategoryId}
+              onCategoryClick={this.showProductsForCategory}
+            />*/}
+          </div>
+          <div id="main" style={{ flex: 5 }}>
+            <ProductList products={this.state.products} addToCart={this.addToCart} />
+          </div>
+          <div
+            id="rightSidebar"
+            style={{
+              flex: 2,
+              display: this.state.showCart ? 'inline-block' : 'none',
+            }}>
+            The Cart
+            <button onClick={() => this.setState({ showCart: false })}>=&gt;</button>
+            <Cart products={this.state.cart} />
+          </div>
         </div>
-        <div id="main" style={{ flex: 5 }}>
-          <ProductList products={this.state.products} addToCart={this.addToCart} />
-        </div>
-        <div
-          id="rightSidebar"
-          style={{
-            flex: 2,
-            display: this.state.showCart ? 'inline-block' : 'none',
-          }}>
-          The Cart
-          <button onClick={() => this.setState({ showCart: false })}>=&gt;</button>
-          <Cart products={this.state.cart} />
-        </div>
-      </div>
+
+      </Provider>
     );
   }
 }
