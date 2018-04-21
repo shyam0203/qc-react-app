@@ -1,15 +1,7 @@
-import apiClient from './api-client';
+import getApiClient from './api-client';
+import qcEcom from '../../../config';
 
-// export const defaultAction = () => {
-//   return {
-//     type: 'MyAction'
-//   };
-// };
-
-// export const thunkAction = () => {
-//   return (dispatch) => {
-//   };
-// };
+const apiClient = getApiClient(qcEcom.config);
 
 export const fetchCategories = () => {
   return async (dispatch) => {
@@ -25,6 +17,16 @@ export const showProductsForCategory = (categoryId) => {
       type: 'SHOW_PRODUCTS_FOR_CATEGORY',
       products,
       categoryId,
+    });
+  };
+};
+
+export const searchAllProducts = (q) => {
+  return async (dispatch) => {
+    const productsForCurrentSearch = await apiClient.getProductsForSearch(q);
+    dispatch({
+      type: 'SEARCH_PRODUCTS',
+      productsForCurrentSearch,
     });
   };
 };

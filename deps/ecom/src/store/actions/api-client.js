@@ -1,7 +1,6 @@
 import axios from 'axios';
-import config from '../../server/config';
 
-export default {
+export default (config) => ({
   getCategories() {
     return axios
       .post(
@@ -13,7 +12,7 @@ export default {
           ProductSeries
         }
       }
-    `
+    `,
       )
       .then((resp) => resp.data.data.categories);
   },
@@ -35,8 +34,28 @@ export default {
           }
         }
       }
-    &variables=${JSON.stringify({ categoryId })}`
+    &variables=${JSON.stringify({ categoryId })}`,
       )
       .then((resp) => resp.data.data.category.products);
   },
-};
+  getProductsForSearch(q) {
+    return axios
+      .post(
+        `${config.apiHost}?query=
+      query GetProductsForSearch ($q: String!) {
+        products(q: $q) {
+          id: _id
+          CrossReference
+          ItemDescription
+          Price
+          category {
+            ProductLine
+            ProductSeries
+          }
+        }
+      }
+    &variables=${JSON.stringify({ q })}`,
+      )
+      .then((resp) => resp.data.data.products);
+  },
+});

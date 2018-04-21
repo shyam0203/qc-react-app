@@ -3,6 +3,7 @@ import React from 'react';
 class CategoryItem extends React.PureComponent {
   handleClick = () => {
     this.props.onClick(this.props.category.id);
+    window.history.pushState('', null, `/category/${this.props.category.id}`);
   };
   render() {
     const { category, isActive } = this.props;

@@ -4,7 +4,7 @@ const isDev = process.env.NODE_ENV !== 'production';
 
 const config = {
   devtool: isDev ? 'source-map' : false,
-  entry: ['babel-polyfill', './src/components/Root.js'],
+  entry: ['babel-polyfill', './src/renderers/dom.js'],
   output: {
     path: path.resolve('public'),
     filename: 'bundle.js',

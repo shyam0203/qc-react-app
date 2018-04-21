@@ -3,23 +3,22 @@ import React from 'react';
 import CategoryList from './CategoryList';
 import ProductList from './ProductList';
 import Cart from './Cart';
+import Search from './Search';
 
 import { connect } from 'react-redux';
 
 import { fetchCategories, showProductsForCategory } from '../store/actions';
 
-class App extends React.PureComponent {
-  async componentDidMount() {
-    this.props.fetchCategories();
-  }
-
+export class App extends React.PureComponent {
   render() {
     return (
+      <React.Fragment>
+        <Search />
         <div id="container" style={{ display: 'flex' }}>
-          <div id="leftSidebar" style={{ flex: 3, borderRight: 'thin solid #aaa', paddingRight: 10 }}>
-            <CategoryList
-              onCategoryClick={this.props.showProductsForCategory}
-            />
+          <div
+            id="leftSidebar"
+            style={{ flex: 3, borderRight: 'thin solid #aaa', paddingRight: 10 }}>
+            <CategoryList onCategoryClick={this.props.showProductsForCategory} />
           </div>
           <div id="main" style={{ flex: 5 }}>
             <ProductList />
@@ -35,6 +34,7 @@ class App extends React.PureComponent {
             <Cart />
           </div>
         </div>
+      </React.Fragment>
     );
   }
 }

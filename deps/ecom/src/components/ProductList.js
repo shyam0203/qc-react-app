@@ -3,7 +3,7 @@ import Product from './Product';
 
 import { connect } from 'react-redux';
 
-const ProductList = ({ products, addToCart }) => (
+const ProductList = ({ products }) => (
   <div>
     {products.map((product) => {
       return <Product key={product.id} product={product} />;
